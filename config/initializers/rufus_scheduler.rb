@@ -9,4 +9,3 @@ scheduler.cron '*/1 * * * *' do
     Market.generate(block.id,ticker) if ticker['MarketName']
   end
 end
-

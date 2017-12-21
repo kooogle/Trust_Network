@@ -23,15 +23,17 @@
             <% end %>
           </select>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-2">
+          <select onchange="javascript:location.href = this.value;" class="form-control" style="display: inline;">
+            <option value="">请选择时间跨度</option>
+            <option value="?per_page=&block=<%= params[:block] || Chain.first.id %>&start=<%= params[:start] %>&end=<%= params[:end] %>" <%= 'selected' if params[:per_page] == '' %>>1分钟</option>
+            <option value="?per_page=15min&block=<%= params[:block] || Chain.first.id %>&start=<%= params[:start] %>&end=<%= params[:end] %>" <%= 'selected' if params[:per_page] == '15min' %>>15分钟</option>
+            <option value="?per_page=30min&block=<%= params[:block] || Chain.first.id %>&start=<%= params[:start] %>&end=<%= params[:end] %>" <%= 'selected' if params[:per_page] == '30min' %>>30分钟</option>
+            <option value="?per_page=1h&block=<%= params[:block] || Chain.first.id %>&start=<%= params[:start] %>&end=<%= params[:end] %>" <%= 'selected' if params[:per_page] == '1h' %>>1小时</option>
+          </select>
+        </div>
+        <div class="col-sm-8">
           <form action="" method="get">
-            <div class="col-sm-3">
-              <div class="form-group has-feedback">
-                <div class="input-group">
-                  <input type="text" name="per_page" value="<%= params[:per_page] %>" class="form-control" placeholder="数目条例">
-                </div>
-              </div>
-            </div>
             <div class="col-sm-3">
               <div class="form-group has-feedback">
                 <div class="input-group">
@@ -65,8 +67,6 @@
 </section>
 <script type="text/javascript">
   var myChart = echarts.init(document.getElementById('myChart'));
-  var date = [];
-  var data = [Math.random() * 300];
   option = {
     tooltip: {
       trigger: 'axis',
