@@ -15,6 +15,7 @@
 class Market < ActiveRecord::Base
   self.per_page = 20
   scope :latest, ->{ order(created_at: :desc)}
+  after_create :generate_30min_indicator
 
   def self.generate(block,data,time_stamp)
     m = Market.new
@@ -41,4 +42,14 @@ class Market < ActiveRecord::Base
     end
   end
 
+  def generate_30min_indicator
+    if self.time_stamp%1800 == 0
+      ind = Min30Indicator.new
+      ind.chain_id = self.chain_id
+      ind.market_id = self.id
+      ind.last_price = self.bid
+      ind.time_stamp = self.time_stamp
+      ind.save
+    end
+  end
 end

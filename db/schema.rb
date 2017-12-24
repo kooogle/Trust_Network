@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218071005) do
+ActiveRecord::Schema.define(version: 20171224134624) do
 
   create_table "chains", force: :cascade do |t|
     t.string   "block",      limit: 255
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20171218071005) do
   end
 
   create_table "markets", force: :cascade do |t|
-    t.integer  "chain_id",    limit: 5
+    t.integer  "chain_id",    limit: 8
     t.float    "bid",         limit: 24
     t.float    "ask",         limit: 24
     t.float    "high",        limit: 24
@@ -36,6 +36,23 @@ ActiveRecord::Schema.define(version: 20171218071005) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
+
+  add_index "markets", ["time_stamp"], name: "index_markets_on_time_stamp", using: :btree
+
+  create_table "min30_indicators", force: :cascade do |t|
+    t.integer "chain_id",   limit: 8
+    t.integer "market_id",  limit: 8
+    t.float   "last_price", limit: 24
+    t.float   "ma5",        limit: 24
+    t.float   "ma15",       limit: 24
+    t.float   "macd_fast",  limit: 24
+    t.float   "macd_slow",  limit: 24
+    t.float   "macd_dea",   limit: 24
+    t.float   "macd_diff",  limit: 24
+    t.decimal "time_stamp",            precision: 15
+  end
+
+  add_index "min30_indicators", ["time_stamp"], name: "index_min30_indicators_on_time_stamp", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
