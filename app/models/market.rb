@@ -32,4 +32,13 @@ class Market < ActiveRecord::Base
     m.save
   end
 
+  def self.intact_time(stamp)
+    intact = Time.at(stamp).beginning_of_minute.to_i
+    if stamp.to_i - intact > 30
+      return intact + 60
+    else
+      return intact
+    end
+  end
+
 end
