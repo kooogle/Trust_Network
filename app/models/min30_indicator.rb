@@ -12,7 +12,7 @@
 class Min30Indicator < ActiveRecord::Base
   after_save :sync_ma_price
   after_save :sync_macd
-  validates_uniqueness_of :time_stamp, scope: :market_id
+  validates_uniqueness_of :time_stamp, scope: :chain_id
 
   def sync_ma_price
     if self.ma5.nil? || self.ma15.nil?
@@ -21,7 +21,7 @@ class Min30Indicator < ActiveRecord::Base
   end
 
   def recent_ema(number)
-    ema_array = Min30Indicator.where('id <= ? and chain_id = ?',self.id,self.chain_id).last(number).map {|x| x.last_price }
+    ema_array = Min30Indicator.where('time_stamp <= ? and chain_id = ?',self.time_stamp,self.chain_id).last(number).map {|x| x.last_price }
     average = (ema_array.sum / ema_array.size).round(8)
   end
 
@@ -33,7 +33,7 @@ class Min30Indicator < ActiveRecord::Base
   end
 
   def macd(fast,slow,signal)
-    pre_block = Min30Indicator.where('id < ? and chain_id = ?',self.id,self.chain_id).last
+    pre_block = Min30Indicator.where('time_stamp < ? and chain_id = ?',self.time_stamp,self.chain_id).order(time_stamp: :asc).last
     if pre_block
       last_price = self.last_price
       ema_fast = pre_block.macd_fast
