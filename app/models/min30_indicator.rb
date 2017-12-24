@@ -21,7 +21,7 @@ class Min30Indicator < ActiveRecord::Base
   end
 
   def recent_ema(number)
-    ema_array = Min30Indicator.where('time_stamp <= ? and chain_id = ?',self.time_stamp,self.chain_id).last(number).map {|x| x.last_price }
+    ema_array = Min30Indicator.where('time_stamp <= ? and chain_id = ?',self.time_stamp,self.chain_id).order(time_stamp: :asc).last(number).map {|x| x.last_price }
     average = (ema_array.sum / ema_array.size).round(8)
   end
 
