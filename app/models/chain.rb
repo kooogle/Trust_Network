@@ -24,4 +24,8 @@ class Chain < ActiveRecord::Base
     current['result']
   end
 
+  def tick
+
+  end
+
 end

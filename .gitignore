@@ -14,3 +14,4 @@
 /config/settings.rb
 /config/deploy/online.rb
 /.rvmrc
+/lib/strategies/*

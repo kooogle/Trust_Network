@@ -16,7 +16,7 @@ class Market < ActiveRecord::Base
   self.per_page = 20
   scope :latest, ->{ order(created_at: :desc)}
 
-  def self.generate(block,data)
+  def self.generate(block,data,time_now)
     m = Market.new
     m.chain_id = block
     m.bid = data['Bid']
@@ -28,7 +28,7 @@ class Market < ActiveRecord::Base
     m.prev_day = data['PrevDay']
     m.volume = data['Volume']
     m.base_volume = data['BaseVolume']
-    m.time_stamp = data['TimeStamp'].to_time.to_i
+    m.time_stamp = time_now
     m.save
   end
 
