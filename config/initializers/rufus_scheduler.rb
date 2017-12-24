@@ -4,9 +4,9 @@ scheduler = Rufus::Scheduler.new
 
 #每一分钟获取一次行情
 scheduler.cron '*/1 * * * *' do
-  time_out = Time.now.to_i
+  time_stamp = Time.now.beginning_of_minute.to_i
   Chain.all.each do |block|
     ticker = block.get_market.first
-    Market.generate(block.id,ticker,time_out) if ticker['MarketName']
+    Market.generate(block.id,ticker,time_stamp) if ticker['MarketName']
   end
 end
