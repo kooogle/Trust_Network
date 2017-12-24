@@ -12,6 +12,7 @@
 class Min30Indicator < ActiveRecord::Base
   after_save :sync_ma_price
   after_save :sync_macd
+  validates_uniqueness_of :time_stamp, scope: :market_id
 
   def sync_ma_price
     if self.ma5.nil? || self.ma15.nil?
