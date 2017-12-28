@@ -23,12 +23,16 @@ class Admin::DashboardController < Admin::BaseController
     block = params[:block] || Chain.first.id
     @block = Chain.find(block)
     indicators = @block.min30_indicators
-    indicators = indicators.where("time_stamp >= ? AND time_stamp <= ?",sta_time.to_time.beginning_of_day.to_i,end_time.to_time.end_of_day.to_i) if sta_time.present? && end_time.present?
+    if sta_time.present? && end_time.present?
+      indicators = indicators.where("time_stamp >= ? AND time_stamp <= ?",sta_time.to_time.beginning_of_day.to_i,end_time.to_time.end_of_day.to_i)
+    else
+      indicators = indicators.last(96)
+    end
     @date_array = indicators.map {|x| Time.at(x.time_stamp).strftime('%m-%d %H:%M')}
     @stock_ma5 = indicators.map {|x| x.ma5 }
     @stock_ma15 = indicators.map {|x| x.ma15 }
-    @stock_price = indicators.map {|x| x.last_price }
-    @stock_array = combine(@stock_price)
+    stock_price = indicators.map {|x| x.last_price }
+    @stock_array = combine(stock_price)
   end
 
   private

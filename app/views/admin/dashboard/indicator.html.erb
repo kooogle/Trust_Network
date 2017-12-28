@@ -28,8 +28,8 @@
             <div class="col-sm-3">
               <div class="form-group has-feedback">
                 <div class="input-group">
-                  <% pre_7_day = (Date.current - 7.day).to_s %>
-                  <input id='start' type="text" name="start" value="<%= params[:start] || pre_7_day %>" class="form-control" placeholder="起始日期">
+                  <% pre_1_day = (Date.current - 1.day).to_s %>
+                  <input id='start' type="text" name="start" value="<%= params[:start] || pre_1_day %>" class="form-control" placeholder="起始日期">
                   <input type="hidden" name="block" value="<%= params[:block] || Chain.first.id %>">
                 </div>
               </div>
@@ -108,7 +108,7 @@
       }
     },
     legend: {
-      data: ['<%= @block.block %>','STOCK','MA5', 'MA15']
+      data: ['<%= @block.block %>','MA5', 'MA15']
     },
     grid: {
       left: '5%',
@@ -225,15 +225,6 @@
           valueDim: 'close'
         }
         ]
-      }
-    },
-    {
-      name: 'STOCK',
-      type: 'line',
-      data: <%= raw @stock_price %>,
-      smooth: true,
-      lineStyle: {
-        normal: {opacity: 0.5}
       }
     },
     {
