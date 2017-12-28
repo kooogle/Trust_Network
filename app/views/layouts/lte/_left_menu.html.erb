@@ -21,7 +21,12 @@
     <li class="header">交易中心</li>
     <li class="treeview <%= 'active' if controller_name == 'dashboard' && action_name == 'index'%>">
       <a href="<%= admin_stock_path %>" target="_self">
-        <i class="fa fa-dashboard"></i> <span> 日常行情</span>
+        <i class="fa fa-dashboard"></i> <span> 历史行情</span>
+      </a>
+    </li>
+    <li class="treeview <%= 'active' if controller_name == 'dashboard' && action_name == 'indicator'%>">
+      <a href="<%= admin_indicator_path %>" target="_self">
+        <i class="fa fa-asterisk"></i> <span> 趋势指标</span>
       </a>
     </li>
     <li class="treeview <%= 'active' if controller_name == 'chains' %>">

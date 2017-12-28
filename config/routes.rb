@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to:'dashboard#index', as: :stock
+    get 'indicator', to:'dashboard#indicator'
     resources :chains do
       resources :markets
     end

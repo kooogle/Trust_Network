@@ -8,7 +8,8 @@ class Chain < ActiveRecord::Base
 
   validates_presence_of :block, :currency, :title
   validates_uniqueness_of :block, scope: :currency
-  has_many :markets, dependent: :destroy
+  has_many :markets, class_name:'Market'
+  has_many :min30_indicators, class_name:'Min30Indicator'
 
   def market_name
     "#{self.currency}-#{self.block}"
