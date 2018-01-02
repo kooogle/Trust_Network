@@ -11,6 +11,7 @@ class DayBar < ActiveRecord::Base
   scope :date, -> { order("time_stamp") }
   validates_uniqueness_of :time_stamp, scope: :chain_id
   has_one :indicator, class_name:'DayIndicator'
+  after_create :generate_indicator
 
   def self.generate(block,ticks)
     bars =  block.day_bars.date
