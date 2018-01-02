@@ -29,6 +29,11 @@
         <i class="fa fa-asterisk"></i> <span> 趋势指标</span>
       </a>
     </li>
+    <li class="treeview <%= 'active' if controller_name == 'dashboard' && action_name == 'day_bar'%>">
+      <a href="<%= admin_day_bar_path %>" target="_self">
+        <i class="fa fa-asterisk"></i> <span> 日线行情</span>
+      </a>
+    </li>
     <li class="treeview <%= 'active' if controller_name == 'chains' %>">
       <a href="<%= admin_chains_path %>" target="_self">
         <i class="fa fa-btc"></i> <span> 区块货币</span>

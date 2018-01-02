@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to:'dashboard#index', as: :stock
     get 'indicator', to:'dashboard#indicator'
+    get 'day_bar', to:'dashboard#day_bar'
     resources :chains do
       resources :markets
     end
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'hit_markets', to:'markets#hit_markets'
+    get 'hit_day_bar', to:'markets#hit_day_bar'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

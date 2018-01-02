@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171224134624) do
+ActiveRecord::Schema.define(version: 20180101092546) do
 
   create_table "chains", force: :cascade do |t|
     t.string   "block",      limit: 255
@@ -19,6 +19,28 @@ ActiveRecord::Schema.define(version: 20171224134624) do
     t.string   "title",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "day_bars", force: :cascade do |t|
+    t.integer "chain_id",    limit: 8
+    t.float   "open",        limit: 24
+    t.float   "close",       limit: 24
+    t.float   "high",        limit: 24
+    t.float   "low",         limit: 24
+    t.float   "volume",      limit: 24
+    t.float   "base_volume", limit: 24
+    t.decimal "time_stamp",             precision: 15
+  end
+
+  create_table "day_indicators", force: :cascade do |t|
+    t.integer "chain_id",   limit: 8
+    t.integer "day_bar_id", limit: 8
+    t.float   "ma5",        limit: 24
+    t.float   "ma10",       limit: 24
+    t.float   "macd_diff",  limit: 24
+    t.float   "macd_dea",   limit: 24
+    t.float   "macd_fast",  limit: 24
+    t.float   "macd_slow",  limit: 24
   end
 
   create_table "markets", force: :cascade do |t|
